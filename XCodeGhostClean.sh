@@ -3,7 +3,7 @@
 # code by Qin Hong @ 21 Sep, 2015
 #
 
-xcodeGhostKeyWords="icloud-a"
+xcodeGhostKeyWords="icloud-analysis.com"
 dumpToolPath="/var/root/dumpdecrypted.dylib"
 appDir="/var/mobile/Containers/Bundle/Application"
 
