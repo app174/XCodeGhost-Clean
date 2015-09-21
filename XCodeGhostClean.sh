@@ -40,7 +40,7 @@ function processPlist() {
 	isEncrypted=`otool -l "${executablePath}" |grep cryptid |awk '{print $1$2}' |grep cryptid1`
 
 	if [ -n "${isEncrypted}" ];then
-		echo "dumping match-O..."
+		echo "dumping mach-O..."
 
 		#check UNICODE string
 		isANSI=`echo "${executableName}" |grep [^a-z0-9_-]`
@@ -55,16 +55,16 @@ function processPlist() {
 
 		DYLD_INSERT_LIBRARIES="${dumpToolPath}" "${executablePath}" > /dev/null 2>&1
 		if [ -f "$decryptedPath" ];then
-			decryptedMatchOPath=$decryptedPath
+			decryptedMachOPath=$decryptedPath
 		else
 			echo "Error: decrypt failed!"
 		fi
 	else
-		decryptedMatchOPath=$executablePath
+		decryptedMachOPath=$executablePath
 	fi
 
 	#check code
-	isContainsKeyWords=`strings "${decryptedMatchOPath}" |grep "${xcodeGhostKeyWords}"`
+	isContainsKeyWords=`strings "${decryptedMachOPath}" |grep "${xcodeGhostKeyWords}"`
 	if [ -n "${isContainsKeyWords}" ];then
 		echo -e "\033[31mWarning: found XCodeGhost!\033[0m"
 		removePath=$(dirname "${appDir}")
